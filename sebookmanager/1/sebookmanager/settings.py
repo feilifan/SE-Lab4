@@ -10,7 +10,7 @@ MANAGERS = ADMINS
 from os import environ
 debug = not environ.get("APP_NAME", "") 
 if debug:
-    DEBUG = True
+    DEBUG = False
     MYSQL_DB = 'sebookmanager' 
     MYSQL_USER = 'root' 
     MYSQL_PASS = '520820' 

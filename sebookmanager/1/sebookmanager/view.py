@@ -2,6 +2,8 @@ from django.http import HttpResponse,HttpResponseRedirect
 from django.shortcuts import render_to_response
 from books.models import Book,Author
 import datetime
+def test(request)
+    return HttpResponse("hello world")
 def search(request):
     my_list=[]
     lists=[]

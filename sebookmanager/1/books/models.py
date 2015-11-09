@@ -17,3 +17,5 @@ class Book(models.Model):
     Price = models.IntegerField()
     def __unicode__(self):
         return self.Title
+class test(models.Model)
+    test=models.CharField(max_length=10)
