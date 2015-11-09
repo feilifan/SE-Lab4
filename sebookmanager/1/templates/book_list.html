@@ -1,0 +1,42 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="/templates/bootstrap/css/bootstrap.css" />
+</head>
+<title>search_result</title>
+<body background="/media/BackGround.jpg">
+<div align="center">{% include "SearchButton.html" %}<a href="/add_book/" align="center"><input type="button" name="add_book" value="add a book" title="添加新的书籍"/></a></div>
+<p>You searched for: <font color="blue"><strong>{{ s }}</strong></font></p>
+{% if lists or otherBooks %}
+{% else %}
+<font color="red">there no books you want</font>
+{% endif %}
+<div class="offset1">
+<ul>
+{% if lists %}
+    {% for my_list in lists %}
+    {% if my_list.1 %}
+        <li><font color="blue">Author ID:{{my_list.0.AuthorId}}</font></li>
+        <hr>
+        <ol>
+            {% for Book in my_list.1 %}
+                <pre><li><a href=/book_display/?ISBN={{Book.ISBN}} title="详细查看" target="_blank">{{Book.Title}}</a>   <a href=/book_update/?ISBN={{Book.ISBN}} title="更新">update</a>   <a href=/book_delete/?ISBN={{Book.ISBN}}&s={{s}} title="删除">delete</a></li></pre> 
+            {% endfor %}
+        </ol>
+    {% else %}
+        <li><pre><font color="blue">Author ID:{{my_list.0.AuthorId}}</font>         <font color="red">this author have no book</font></pre></li>
+    {% endif %}
+    {% endfor %}
+{% endif %}
+    {% if otherBooks %}
+    <hr>
+    <li><font color="blue">Book Title:{{s}}</font></li>
+        <ul>
+            {% for otherBook in otherBooks %}
+                <pre><li><a href=/book_display/?ISBN={{otherBook.ISBN}} title="详细查看" target="_blank">Book ISBN:{{otherBook.ISBN}}</a>   <a href=/book_update/?ISBN={{otherBook.ISBN}} title="更新">update</a>   <a href=/book_delete/?ISBN={{otherBook.ISBN}}&s={{s}} title="删除">delete</a></li></pre>
+            {% endfor %}
+        </ul>
+    {% endif %} 
+</ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC>
+<html xml:lang="en" lang="en">
+<head>
+<link rel="stylesheet" type="text/css" href="/templates/bootstrap/css/bootstrap.css" />
+{% if display %}
+<title>display_book</title>
+{% else %}
+<title>edit_book</title>
+{% endif %}
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="description" content="" />
+<meta name="keywords" content="" />
+<style type="text/css">
+p, h1, form, button{border:0; margin:0; padding:0;}
+.spacer{clear:both; height:1px;}
+/* ———– My Form ———– */
+.myform{
+margin:0 auto;
+width:400px;
+padding:14px;
+}
+
+/* ———– stylized ———– */
+#stylized{
+border:solid 2px #b7ddf2;
+background:#ebf4fb;
+}
+
+#stylized h1 {
+font-size:16px;
+font-weight:bold;
+margin-bottom:8px;
+}
+
+#stylized p{
+font-size:12px;
+color:#666666;
+margin-bottom:20px;
+border-bottom:solid 1px #b7ddf2;
+padding-bottom:10px;
+}
+
+#stylized label{
+display:block;
+font-weight:bold;
+text-align:right;
+width:140px;
+float:left;
+}
+
+#stylized .small{
+color:#666666;
+display:block;
+font-size:11px;
+font-weight:normal;
+text-align:right;
+width:140px;
+}
+
+#stylized input{
+float:left;
+font-size:15px;
+padding:4px 2px;
+border:solid 1px #aacfe4;
+width:200px;
+margin:2px 0 20px 10px;
+}
+
+#stylized .sub{
+clear:both;
+margin-left:150px;
+width:120px;
+height:32px;
+line-height:20px;
+border:1px solid #8b9c56;
+background:url("../images/bt_bg.gif") 0px -64px;
+text-align:center;
+color:#336600;
+font-size:15px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.red{
+color:#ff0000;
+}
+.blue{
+color:#0000FF;
+}
+</style>
+
+</head>
+<body background="/media/BackGround.jpg">
+
+<div id="stylized" class="myform">
+{% if errors %}
+        <ul>
+            {% if errors.0 %}
+            <li><font class="red">the ISBN already exist</font></li>
+            {% endif %}
+            {% if errors.1 %}
+            <li><font class="red"><strong>the AuthorId isn't existing</strong></font></li>
+            {% endif %}
+        </ul>
+{% endif %}
+<form id="form" name="form" method="get" action="/add_book/">
+{% if display %}
+<h1>book information display</h1>
+{% else %}
+<h1>edit a book imformation</h1><a href="/add_author/" target="_blank">add a Author</a>
+<p>attention: the ISBN should be unique</p>
+{% endif %}
+<input type="hidden" name="update" {% if update %} value='1' {% else %} value='0' {% endif %} />
+<label>ISBN
+</label>
+<input type="text"  {% if update or display %} readonly="" {% endif %} pattern="[0-9]{13}" name="ISBN" id="ISBN" value="{{ISBN}}" required="" placeholder="书籍编号(13位数字)"/>
+
+<label>Title
+</label>
+<input type="text" {% if update or display %} readonly="" {% endif %} name="Title" id="Title" value="{{Title}}" required="" placeholder="书籍标题"/>
+<label>AuthorId
+</label>
+<input type="text" {% if display %} readonly="" {% endif %} pattern="[0-9]{1,}" name="AuthorId" id="AuthorId" value="{{AuthorId}}" required="" placeholder="作者ID(由数字组成)">
+<label>Publisher
+</label>
+<input type="text" {% if display %} readonly="" {% endif %} name="Publisher" id="Publisher" value="{{Publisher}}" required="" placeholder="出版社"/>
+<label>PublishDate
+</label>
+<input type="date" {% if display %} readonly="" {% endif %} name="PublishDate" id="PublishDate" value="{{PublishDate}}" required=""/>
+<label>Price
+</label>
+<input type="text" {% if display %} readonly="" {% endif %} pattern="[0-9]{1,}"name="Price" id="Price" value="{{Price}}" required="" placeholder="书籍价格"/>
+{% if not display %}<div class="offset1"><input type="submit" value="submit"/></div>{% else %}
+<label>AuthorId
+</label>
+<input type="text" readonly=""name="AuthorId" id="AuthorId" value="{{AuthorId}}"/>
+<label>Name
+</label>
+<input type="text" readonly=""name="Name" id="Name" value="{{Name}}"/>
+<label>Age
+</label>
+<input type="text" readonly=""name="Age" id="Age" value="{{Age}}"/>
+<label>Country
+</label>
+<input type="text" readonly=""name="Country" id="Country" value="{{Country}}"/>
+{% endif %}
+<div class="spacer"></div>
+
+</form>
+</div>
+
+</body>
+</html>
